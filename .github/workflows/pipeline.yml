@@ -31,7 +31,10 @@ jobs:
     - name: Build and Test
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./mvnw -B verify
+      run: |
+        ./mvnw -B verify
+        echo "Carpeta Jar"
+        ls -la 
 
     - name: Build
       run: docker build -t ${{ secrets.DOCKER_USER }}/app:v1 .
