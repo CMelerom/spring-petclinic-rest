@@ -35,6 +35,7 @@ jobs:
         ./mvnw -B verify
         echo "Carpeta Jar"
         ls -la 
+        ls target
 
     - name: Build
       run: docker build -t ${{ secrets.DOCKER_USER }}/app:v1 .
