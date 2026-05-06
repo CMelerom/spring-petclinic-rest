@@ -1,4 +1,4 @@
-name: Ppipeline
+name: Ppipeline v2
 
 on:
   push:
