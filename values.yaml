@@ -1,0 +1,10 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: Runner
+metadata:
+  name: my-gh-runner
+  namespace: arc
+spec:
+  repository: CMelerom/spring-petclinic-rest
+  labels:
+    - helm-gh-runner
+  dockerEnabled: true
