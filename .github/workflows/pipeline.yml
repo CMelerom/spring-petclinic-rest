@@ -43,5 +43,8 @@ jobs:
     - name: Push
       run: docker push ${{ secrets.DOCKER_USER }}/app:v1
 
-      
+    - name: Deploy Kubernetes
+      run: |
+        kubectl apply -f deployment.yaml
+        kubectl rollout restart deployment/petclinic-deployment -n arc
     
