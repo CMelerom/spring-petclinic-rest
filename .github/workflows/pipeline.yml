@@ -43,10 +43,11 @@ jobs:
     - name: Push
       run: docker push ${{ secrets.DOCKER_USER }}/app:v1
 
-    - name: Install kubectl
-      uses: azure/setup-kubectl@v3
+    - name: Set Kubernetes Context
+      uses: azure/k8s-set-context@v3
       with:
-        version: 'latest'
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
     - name: Deploy Kubernetes
       run: |
