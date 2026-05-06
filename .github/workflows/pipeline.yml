@@ -1,4 +1,4 @@
-name: Java CI for Pull Request
+name: Ppipeline
 
 on:
   push:
