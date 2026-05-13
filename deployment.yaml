@@ -17,9 +17,9 @@ spec:
     spec:
       containers: 
        - name: petclinic
-         image: cmelerom/app:v1
+         image: cmelerom/app:v2
          ports:
-         - containerPort: 8080
+         - containerPort: 9966
 ---
 apiVersion: v1
 kind: Service
@@ -32,4 +32,4 @@ spec:
     app: petclinic
   ports:
   - port: 8080
-    targetPort: 8080
+    targetPort: 9966
