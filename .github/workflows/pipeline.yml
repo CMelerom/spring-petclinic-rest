@@ -27,13 +27,20 @@ jobs:
         echo "Carpeta Jar"
         ls -la 
         ls target
+
+    - name: Upload JAR Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: jar
+        path: target/ 
+        retention-days: 1
     
   reusable:
     needs: build
     uses: CMelerom/Github-action/.github/workflows/reusable.yml@master
     with:
       image: "app"          
-      deployment: "petclinic-deployment" 
+      deployment: "petclinic-deployment"
     secrets:
       DOCKER_USER: ${{ secrets.DOCKER_USER }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
