@@ -45,3 +45,5 @@ jobs:
       DOCKER_USER: ${{ secrets.DOCKER_USER }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
