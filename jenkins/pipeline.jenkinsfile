@@ -1,0 +1,53 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:3.9.6-amazoncorretto-17
+            command:
+            - cat
+            tty: true
+
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+            
+        '''
+    }
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build and Test') {
+        steps {
+          container('maven') {
+            sh './mvnw -B verify'
+          }
+        }
+    }
+    stage('Login to DockerHub') {
+      steps {
+        container('docker'){
+          withCredentials([
+            usernamePassword(
+                credentialsId: 'dockerhub',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASSWORD'
+            )
+          ]) {
+             sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin'
+          }
+        }
+      }
+    }
+  }
+}
