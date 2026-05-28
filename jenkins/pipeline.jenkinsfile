@@ -100,7 +100,7 @@ pipeline {
             sh """
               kubectl apply -f deployment.yaml --kubeconfig=\$KUBECONFIG --insecure-skip-tls-verify
               
-              kubectl rollout restart deployment/petclinic-deployment -n arc --kubeconfig=\$KUBECONFIG --insecure-skip-tls-verify
+              kubectl rollout restart deployment/petclinic-deployment --kubeconfig=\$KUBECONFIG --insecure-skip-tls-verify
             """
           }
         }
