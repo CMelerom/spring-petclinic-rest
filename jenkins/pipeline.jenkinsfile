@@ -19,6 +19,11 @@ pipeline {
             volumeMounts:
             - mountPath: /var/run/docker.sock
               name: docker-sock
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - cat
+            tty: true
           volumes:
           - name: docker-sock
             hostPath:
@@ -84,6 +89,19 @@ pipeline {
             )
           ]) {
             sh "docker push ${DOCKER_USER}/app-jenkins:v1"
+          }
+        }
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        container('kubectl') {
+          withCredentials([file(credentialsId: 'KUBE_CONFIG', variable: 'KUBECONFIG')]) {
+            sh """
+              kubectl apply -f deployment.yaml --kubeconfig=\$KUBECONFIG --insecure-skip-tls-verify
+              
+              kubectl rollout restart deployment/petclinic-deployment -n arc --kubeconfig=\$KUBECONFIG --insecure-skip-tls-verify
+            """
           }
         }
       }
