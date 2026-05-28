@@ -30,7 +30,7 @@ pipeline {
     stage('Build and Test') {
         steps {
           container('maven') {
-            sh './mvnw -B verify'
+            sh 'mvn -B verify'
           }
         }
     }
