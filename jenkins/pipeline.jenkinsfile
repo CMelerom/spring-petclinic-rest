@@ -23,7 +23,7 @@ pipeline {
           - name: docker-sock
             hostPath:
               path: /var/run/docker.sock
-              
+
         '''
     }
   }
@@ -36,7 +36,7 @@ pipeline {
     stage('Build and Test') {
         steps {
           container('maven') {
-            sh 'mvn -B verify'
+            sh 'export MAVEN_OPTS="-Xms512m -Xmx1548m -XX:+UseSerialGC" && mvn -B clean verify -DreuseForks=false'
           }
         }
     }
