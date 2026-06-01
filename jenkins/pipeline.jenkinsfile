@@ -97,10 +97,9 @@ pipeline {
       steps {
         container('kubectl') {
           withCredentials([file(credentialsId: 'KUBE_CONFIG', variable: 'KUBECONFIG')]) {
-            sh """
-              kubectl apply -f deployment.yaml --kubeconfig=$KUBECONFIG --insecure-skip-tls-verify
-              kubectl rollout restart deployment/petclinic-deployment --kubeconfig=$KUBECONFIG --insecure-skip-tls-verify
-            """
+            sh 'kubectl apply -f deployment.yaml --kubeconfig=$KUBECONFIG --insecure-skip-tls-verify'
+            sh 'kubectl rollout restart deployment/petclinic-deployment --kubeconfig=$KUBECONFIG --insecure-skip-tls-verify'
+
           }
         }
       }
